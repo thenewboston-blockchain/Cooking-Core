@@ -25,15 +25,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
-    'debug_toolbar',
-    'storages',
+    # 'debug_toolbar',
+    # 'storages',
 
     # Apps
-    'cooking_core.accounts.apps.AccountsConfig',
-    'cooking_core.blocks.apps.BlocksConfig',
-    'cooking_core.comments.apps.CommentsConfig',
-    'cooking_core.config.apps.SettingsConfig',
-    'cooking_core.recipes.apps.RecipesConfig',
+    # 'cooking_core.accounts.apps.AccountsConfig',
+    # 'cooking_core.blocks.apps.BlocksConfig',
+    # 'cooking_core.comments.apps.CommentsConfig',
+    # 'cooking_core.config.apps.SettingsConfig',
+    # 'cooking_core.recipes.apps.RecipesConfig',
 ]
 
 MIDDLEWARE = [
@@ -78,12 +78,6 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
         'ATOMIC_REQUESTS': True,
-        # TODO(dmu) MEDIUM: Unfortunately Daphne / ASGI / Django Channels do not properly reuse database connections
-        #                   and therefore we are getting resource (connection) leak that leads to the following:
-        #                   django.db.utils.OperationalError: FATAL:  sorry, too many clients already
-        #                   `'CONN_MAX_AGE': 0` is used as workaround. In case it notably affects performance
-        #                   implement a solution that either closes database connections on WebSocket client
-        #                   disconnect and implement connection pooling outside Django (BgBouncer or similar)
         'CONN_MAX_AGE': 0,
     }
 }
@@ -103,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'accounts.Account'
+# AUTH_USER_MODEL = 'accounts.Account'
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'

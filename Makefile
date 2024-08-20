@@ -10,6 +10,8 @@ install-pre-commit:
 lint:
 	poetry run pre-commit run --all-files
 
+
+
 .PHONY: migrate
 migrate:
 	poetry run python -m cooking_core.manage migrate
@@ -20,7 +22,7 @@ migrations:
 
 .PHONY: run-server
 run-server:
-	poetry run python -m cooking_core.manage runserver
+	poetry run python -m cooking_core.manage runserver 0.0.0.0:8000
 
 .PHONY: shell
 shell:
@@ -41,3 +43,26 @@ up-dependencies-only:
 
 .PHONY: update
 update: install migrate install-pre-commit ;
+
+
+.PHONY: run-docker-dev-bash
+run-docker-dev-bash:
+	docker-compose -f docker-compose.dev.yml run --rm app /bin/bash
+
+
+
+.PHONY: prune-docker
+prune-docker:
+	# Remove unused containers, networks, images, and volumes
+	docker system prune -a --volumes
+
+
+# stop all docker containers
+.PHONY: stop-docker
+stop-docker:
+	docker-compose -f docker-compose.dev.yml down
+
+# remove postgresql-data from docker-compose.dev.yml
+.PHONY: remove-docker-dev-volumes
+remove-docker-dev-volumes:
+	docker-compose -f docker-compose.dev.yml down -v
